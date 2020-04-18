@@ -1,0 +1,48 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+  	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Create Player</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+
+<body>
+
+	<form action="#" th:action="@{/savePlayerInfo}" th:object="${playerDetails}"
+		method="post" class="form-inline">
+
+		<div class="form-group">
+			<label for="playerName">Player Name:</label>
+			<input type="text" class="form-control mx-sm-3" id="playerName" th:field="*{playerName}">
+		</div>
+		<div class="form-group">
+			<label for="teamName">Team Name:</label>
+<!-- 			<input type="text" class="form-control mx-sm-3" id="teamName" th:field="*{teamName}"> -->
+			<select class="form-control mx-sm-3" id="teamName" th:field="*{teamName}">
+				<option th:value="'Mumbai Indians'" th:text="'Mumbai Indians'"></option>
+				<option th:value="'Mumbai Indians'" th:text="MI"></option>
+				<option th:value="'Royal Challengers Bangalore'" th:text="'Royal Challengers Bangalore'"></option>
+				<option th:value="'Chennai Superkings'" th:text="'Chennai Superkings'"></option>
+				<option th:value="'Sunrisers Hyderabad'" th:text="'Sunrisers Hyderabad'"></option>
+				<option th:value="'Kolkata KnightRiders'" th:text="'Kolkata KnightRiders'"></option>
+				<option th:value="'Delhi Capitals'" th:text="'Delhi Capitals'"></option>
+				<option th:value="'Kings XI Punjab'" th:text="'Kings XI Punjab'"></option>
+				<option th:value="'Rajasthan Royals'" th:text="'Rajasthan Royals'"></option>
+				<option th:each="i : ${#numbers.sequence(0, 100)}" th:value="${i}" th:text="${i}"></option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="position">Position:</label>
+			<input type="text" class="form-control mx-sm-3" id="position" th:field="*{position}">
+		</div>
+
+		<div class="form-group">
+			<button type="submit" class="btn btn-primary">Submit</button>		
+		</div>
+
+	</form>
+
+	<p th:text="${message}"></p>
+	<a href="dispPlayerDetails">View Player Details</a>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+<title>Tournament Details</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+	<h2>Tournament Details:</h2>
+	<table class=table>
+		<thead class="thead-light">
+			<tr>
+<!-- 				<th>#</th> -->
+				<th>Tournament Name</th>
+				<th>Country</th>
+				<th>Sport</th>
+				<th>Player Of The Series</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr data-th-each="tournament : ${tournaments}">
+<!-- 				<td data-th-text="${tournament.tournamentId}"></td> -->
+				<td data-th-text="${tournament.id.tournamentName}"></td>
+				<td data-th-text="${tournament.id.tournamentCountry}"></td>
+				<td data-th-text="${tournament.id.tournamentSport}"></td>
+				<td data-th-text="${tournament.playerOfTheSeries}"></td>
+				<td><a th:href="@{'deleteTournamentEntry?name='+${tournament.id.tournamentName}}">Delete</a></td>
+				<td><a th:href="@{'showUpdateTournament?name='+${tournament.id.tournamentName}}">Edit</a></td>
+			</tr>
+		</tbody>
+	</table>
+
+</body>
+</html>
+
+	<!-- 		<c:forEach items="${tournaments}" var="tournament"> -->
+	<!-- 		<tr> -->
+	<!-- 			<td>${tournament.tournamentId}</td> -->
+	<!-- 			<td>${tournament.tournamentName}</td> -->
+	<!-- 			<td>${tournament.tournamentCountry}</td> -->
+	<!-- 			<td>${tournament.tournamentSport}</td> -->
+	<!-- 			<td>${tournament.playerOfTheSeries}</td> -->
+	<!-- <%-- 			<td><a href="deleteTournament?id=${tournament.tournamentId}">delete</a></td> --%> -->
+	<!-- <%-- 			<td><a href="showUpdateTournament?id=${tournament.tournamentId}">edit</a></td> --%> -->
+	<!-- 		</tr> -->
+	<!-- 		</c:forEach> -->
+	<!-- 	</table> -->
+
+
+	<!-- <a href="showCreate">Add Location</a> -->
+
+

@@ -1,0 +1,269 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<title>Make Predictions</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+	<div data-role="header" data-position="fixed" style="font-size: 25px;">
+		<h1>ICC Cricket World Cup 2020 PREDIKTA</h1>
+	</div>
+<form action="#" th:action="@{/submitPrediction}" th:object="${userUpdate}">
+	<div data-role="content">
+
+		<div class="calender">
+			<label for="date">Select Date:</label>
+			<input type="text" id="datepicker" th:field="*{matchDate}">
+		</div>
+		<div class="matchDiv">
+			<div data-role="fieldcontain">
+				<label for="select-choice" class="select">Select Match</label>
+				<select name="select-choice" id="select-choice" required th:field="*{matchNumber}">
+				<option value="0">Select Match</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="Teamdiv">
+			<div data-role="fieldcontain">
+				<label for="winselect" class="select">Winning Team</label>
+				<select name="winselect" id="winselect" required th:field="*{winningTeam}">
+					<option value="notselected">Winning Team</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="MOM1">
+
+			<div data-role="fieldcontain">
+				<label for="MOM1" class="select">Man of the match 1</label>
+				<select required name="MOM1" id="MOM1" th:field="*{playerOfMatch1}">
+					<option value="notselected">Select</option>
+
+				</select>
+			</div>
+		</div>
+
+		<div class="MOM2">
+
+			<div data-role="fieldcontain">
+				<label for="MOM2" class="select">Man of the match 2</label>
+				<select required name="MOM2" id="MOM2" th:field="*{playerOfMatch2}">
+					<option value="">Select</option>
+				</select>
+			</div>
+		</div>
+		<div class="MOM3"></div>
+		<div data-role="fieldcontain">
+			<label for="MOM3" class="select">Man of the match 3</label>
+			<select required name="MOM3" id="MOM3" th:field="*{playerOfMatch3}">
+				<option value="">Select</option>
+			</select>
+		</div>
+	</div>
+
+	<div>
+<!-- 		<a data-role="button" class="btn btn-primary">Submit</a> -->
+		<button type="submit" class="btn btn-primary">Submit</button>	
+	</div>
+	</form>
+	
+	<script type="text/javascript" src="webjars/jquery/3.3.1/jquery.js"></script>	
+	<script type="text/javascript" src="webjars/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript" src="webjars/jquery-ui/1.12.1/jquery-ui.js"></script>
+
+	<script  th:inline="javascript">
+		
+		$(document).ready(function() {
+			$("#datepicker").datepicker({
+				dateFormat : 'yy-mm-dd',
+				onSelect : function(selectedDate) {
+					
+					
+					const api_url = 'showMatch'
+
+					$.ajax({
+						url : api_url + "/" + selectedDate,
+						contentType : "application/json",
+						dataType : 'json',
+						success : function(response) {
+							
+							let firstMatchTeamOne;
+							let firstMatchPlayersTeamOne;
+							let firstMatchTeamTwo;
+							let firstMatchPlayersTeamTwo;
+							let secondMatchTeamOne;
+							let secondMatchPlayersTeamOne;
+							let secondMatchTeamTwo;
+							let secondMatchPlayersTeamTwo;
+							
+							
+							$.each(response, function(i, item) {
+								
+								if(item.matchNumber == 1){
+																		
+									$('#select-choice').append(
+											$('<option>', {
+												value : item.matchNumber,
+												text : item.matchNumber
+											}));
+									
+									$.each(item.firstTeam, function(key, value){
+										firstMatchTeamOne = key;
+										firstMatchPlayersTeamOne = value;
+									})																	
+
+									$.each(item.secondTeam, function(key, value){
+										firstMatchTeamTwo = key;
+										firstMatchPlayersTeamTwo = value;
+									})									
+								} else if(item.matchNumber == 2){
+																		
+									$('#select-choice').append(
+											$('<option>', {
+												value : item.matchNumber,
+												text : item.matchNumber
+											}));
+									
+									$.each(item.firstTeam, function(key, value){
+										secondMatchTeamOne = key;
+										secondMatchPlayersTeamOne = value;
+									})									
+
+									$.each(item.secondTeam, function(key, value){
+										secondMatchTeamTwo = key;
+										secondMatchPlayersTeamTwo = value;
+									})									
+								}
+							})
+							
+							$("#select-choice").change(function() {
+								let selectedMatch = $(this).children("option:selected").val();
+								$('#winselect').empty().append($('<option value="">Winning Team</option>'));
+								$('#MOM1').empty().append($('<option value="">Select Player</option>'));
+								$('#MOM2').empty().append($('<option value="">Select Player</option>'));
+								$('#MOM3').empty().append($('<option value="">Select Player</option>'));
+								
+								if(selectedMatch == 1)
+								{
+									$('#winselect').append(
+											$('<option>', {
+												value : firstMatchTeamOne,
+												text : firstMatchTeamOne
+									}));
+									
+									$('#winselect').append(
+											$('<option>', {
+												value : firstMatchTeamTwo,
+												text : firstMatchTeamTwo
+									}));
+									
+									$.each(firstMatchPlayersTeamOne, function(key, value){
+										$('#MOM1').append(
+												$('<option>', {
+													value : value,
+													text : value
+										}));
+										
+										$('#MOM2').append(
+												$('<option>', {
+													value : value,
+													text : value
+										}));
+										
+										$('#MOM3').append(
+												$('<option>', {
+													value : value,
+													text : value
+										}));
+									})
+									
+									$.each(firstMatchPlayersTeamTwo, function(key, value){
+										$('#MOM1').append(
+												$('<option>', {
+													value : value,
+													text : value
+										}));
+										
+										$('#MOM2').append(
+												$('<option>', {
+													value : value,
+													text : value
+										}));
+										
+										$('#MOM3').append(
+												$('<option>', {
+													value : value,
+													text : value
+										}));
+									})
+								} 
+								else
+								{
+									$('#winselect').append(
+											$('<option>', {
+												value : secondMatchTeamOne,
+												text : secondMatchTeamOne
+									}));
+									
+									$('#winselect').append(
+											$('<option>', {
+												value : secondMatchTeamTwo,
+												text : secondMatchTeamTwo
+									}));
+									
+									$.each(secondMatchPlayersTeamOne, function(key, value){
+										$('#MOM1').append(
+												$('<option>', {
+													value : value,
+													text : value
+										}));
+										
+										$('#MOM2').append(
+												$('<option>', {
+													value : value,
+													text : value
+										}));
+										
+										$('#MOM3').append(
+												$('<option>', {
+													value : value,
+													text : value
+										}));
+									})
+									
+									$.each(secondMatchPlayersTeamTwo, function(key, value){
+										$('#MOM1').append(
+												$('<option>', {
+													value : value,
+													text : value
+										}));
+										
+										$('#MOM2').append(
+												$('<option>', {
+													value : value,
+													text : value
+										}));
+										
+										$('#MOM3').append(
+												$('<option>', {
+													value : value,
+													text : value
+										}));
+									})
+									
+								}
+							})
+							
+							
+						}
+					})
+				}
+			})
+		})
+
+	</script>
+</body>
+</html>

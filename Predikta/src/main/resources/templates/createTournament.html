@@ -1,0 +1,39 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+  	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Create Tournament</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+
+<body>
+
+	<form action="#" th:action="@{/saveTournamentInfo}" th:object="${tournamentDetails}"
+		method="post" class="form-inline">
+
+		<div class="form-group">
+			<label for="tournamentName">Tournament Name:</label>
+			<input type="text" class="form-control mx-sm-3" id="tournamentName" th:field="*{id.tournamentName}">
+		</div>
+		<div class="form-group">
+			<label for="tournamentCountry">Tournament Country:</label>
+			<input type="text" class="form-control mx-sm-3" id="tournamentCountry" th:field="*{id.tournamentCountry}">
+		</div>
+		<div class="form-group">
+			<label for="tournamentSport">Tournament Sport:</label>
+			<input type="text" class="form-control mx-sm-3" id="tournamentSport" th:field="*{id.tournamentSport}">
+		</div>
+		<div class="form-group">
+			<label for="playerOfSeries">Player of the series:</label>
+			<input type="text" class="form-control mx-sm-3" id="playerOfSeries" th:field="*{playerOfTheSeries}">
+		</div>
+		<div class="form-group">
+			<button type="submit" class="btn btn-primary">Submit</button>		
+		</div>
+
+	</form>
+
+	<p th:text="${message}"></p>
+	<a href="dispTournamentDetails">View Tournament Details</a>
+</body>
+</html>

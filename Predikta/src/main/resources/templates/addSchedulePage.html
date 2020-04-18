@@ -1,0 +1,48 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+  	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  	<link th:rel="stylesheet" th:href="@{assets/bootstrap-datepicker/css/bootstrap-datepicker.css}"/>
+    <link th:rel="stylesheet" th:href="@{assets/bootstrap-datepicker/css/bootstrap-datepicker.standalone.css}"/>
+<!--     <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/> -->
+<!--     <link th:rel="stylesheet" th:href="@{webjars/font-awesome/5.11.2/css/all.css} "/> -->
+    <title>Create Schedule</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+
+<body>
+
+	<form action="#" th:action="@{/saveSchedule}" th:object="${schedule}"
+		method="post" class="form-inline">
+
+		<div class="form-group">
+			<label for="matchDate">Match Date:</label>
+			<input type="date" class="form-control mx-sm-3" id="matchDate" th:field="*{matchDate}">
+		</div>
+		<div class="form-group">
+			<label for="firstTeam">First Team:</label>
+			<input type="text" class="form-control mx-sm-3" id="firstTeam" th:field="*{firstTeam}">
+		</div>
+		<div class="form-group">
+			<label for="secondTeam">Second Team:</label>
+			<input type="text" class="form-control mx-sm-3" id="secondTeam" th:field="*{secondTeam}">
+		</div>
+		<div class="form-group">
+			<label for="playerOfTheMatch">Player of the match:</label>
+			<input type="text" class="form-control mx-sm-3" id="playerOfTheMatch" th:field="*{playerOfTheMatch}">
+		</div>
+		<div class="form-group">
+			<label for="winner">Winner:</label> <input
+				type="text" class="form-control mx-sm-3" id="winner"
+				th:field="*{winner}">
+		</div>
+		<div class="form-group">
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</div>
+
+	</form>
+
+	<p th:text="${message}"></p>
+	<a href="dispScheduleDetails">View Schedule Details</a>
+</body>
+</html>
